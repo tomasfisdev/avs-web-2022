@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.68 14.76">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="Capa_2" data-name="Capa 2">
+    <g id="Capa_1-2" data-name="Capa 1">
+      <g id="Grupo_9" data-name="Grupo 9">
+        <path id="envelope-fill" class="cls-1" d="M.06,1.91A2.46,2.46,0,0,1,2.46,0H17.23a2.47,2.47,0,0,1,2.4,1.91l-9.78,6ZM0,3.32v8.74L7.14,7.68ZM8.32,8.4l-8.09,5a2.47,2.47,0,0,0,2.23,1.4H17.22a2.46,2.46,0,0,0,2.23-1.4l-8.08-5-1.53.93L8.32,8.4Zm4.23-.72,7.13,4.38V3.32L12.55,7.68Z"/>
+      </g>
+    </g>
+  </g>
+</svg>
