@@ -3,7 +3,11 @@
     <LoaderProducto v-if="$fetchState.pending || !dataExists" />
     <div v-if="!$fetchState.pending && dataExists">
       <div class="modales">
-        <ModalVideo v-if="modalYt" :ytLink="producto.ytLink" @close="modalYt = false" />
+        <ModalVideo
+          v-if="modalYt"
+          :ytLink="producto.ytLink"
+          @close="modalYt = false"
+        />
         <ModalCarousel
           @close="modalCarousel = false"
           class="modal"
@@ -38,7 +42,12 @@
                 :alt="
                   producto.slug
                     .replace(/-/g, ' ')
-                    .replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase() })
+                    .replace(/\w\S*/g, function (txt) {
+                      return (
+                        txt.charAt(0).toUpperCase() +
+                        txt.substr(1).toLowerCase()
+                      );
+                    })
                 "
               />
             </slide>
@@ -47,8 +56,8 @@
         <div class="producto-texto">
           <div class="producto-info">
             <div class="producto-info-flex">
-              <button
-                @click="$router.go(-1)"
+              <router-link
+                :to="'/ventas/' + this.$route.params.categoria"
                 :title="`Volver a ` + producto.categoria.nombre"
                 class="btn-back button-icon"
               >
@@ -68,7 +77,7 @@
                   </svg>
                 </i>
                 {{ producto.categoria.nombre }}
-              </button>
+              </router-link>
               <div v-if="producto.refurbished" class="condicion">
                 <span>|</span>
                 <p class="condicion">Refurbished</p>
@@ -98,22 +107,36 @@
                       'https://api.whatsapp.com/send?phone=541159282989&text=Solicito%20informaci%C3%B3n%20sobre ' +
                       producto.slug
                         .replace(/-/g, ' ')
-                        .replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase() })
+                        .replace(/\w\S*/g, function (txt) {
+                          return (
+                            txt.charAt(0).toUpperCase() +
+                            txt.substr(1).toLowerCase()
+                          );
+                        })
                     "
                     target="_blank"
-                  >Consultar por WhatsApp</a>
+                    >Consultar por WhatsApp</a
+                  >
                   <a
                     class="button"
                     :href="
                       'mailto:info@avsonline.com.ar?subject=Solicito%20informaci%C3%B3n%20sobre ' +
                       producto.slug
                         .replace(/-/g, ' ')
-                        .replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase() })
+                        .replace(/\w\S*/g, function (txt) {
+                          return (
+                            txt.charAt(0).toUpperCase() +
+                            txt.substr(1).toLowerCase()
+                          );
+                        })
                     "
-                  >Consultar por Email</a>
+                    >Consultar por Email</a
+                  >
                 </div>
               </transition>
-              <button @click="Consultar" class="button">{{ consultarTexto }}</button>
+              <button @click="Consultar" class="button">
+                {{ consultarTexto }}
+              </button>
             </div>
             <div class="iconos">
               <a
@@ -154,14 +177,9 @@
 
 <script>
 import { db } from "~/plugins/firebase.js";
-import {
-  collection,
-  query,
-  getDocs,
-  where,
-} from "firebase/firestore";
-import Carousel from 'vue-carousel/src/Carousel.vue'
-import Slide from 'vue-carousel/src/Slide.vue'
+import { collection, query, getDocs, where } from "firebase/firestore";
+import Carousel from "vue-carousel/src/Carousel.vue";
+import Slide from "vue-carousel/src/Slide.vue";
 export default {
   components: {
     Carousel,
@@ -169,16 +187,27 @@ export default {
   },
   head() {
     return {
-      title:
-        `${this.producto.slug
-          .replace(/-/g, ' ')
-          .replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase() })} | ${this.producto.categoria.nombre}`,
-      meta: [{
-        hid: 'description',
-        name: 'description',
-        content: `${this.producto.descripcion || this.producto.slug.replace(/-/g, ' ')
-          .replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase() })}`
-      }]
+      title: `${this.producto.slug
+        .replace(/-/g, " ")
+        .replace(/\w\S*/g, function (txt) {
+          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        })} | ${this.producto.categoria.nombre}`,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: `${
+            this.producto.descripcion ||
+            this.producto.slug
+              .replace(/-/g, " ")
+              .replace(/\w\S*/g, function (txt) {
+                return (
+                  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+                );
+              })
+          }`,
+        },
+      ],
     };
   },
   data() {
@@ -217,7 +246,7 @@ export default {
   },
   methods: {
     LoadedImg() {
-      this.loadingImg = false
+      this.loadingImg = false;
     },
     Consultar() {
       this.consultar = !this.consultar;
@@ -253,11 +282,11 @@ export default {
   },
   filters: {
     capitalize: function (value) {
-      if (!value) return ''
-      value = value.toString()
-      return value.charAt(0).toUpperCase() + value.slice(1)
-    }
-  }
+      if (!value) return "";
+      value = value.toString();
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    },
+  },
 };
 </script>
 

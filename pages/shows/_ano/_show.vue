@@ -2,7 +2,11 @@
   <div>
     <LoaderShow v-if="$fetchState.pending || !dataExists" />
     <div class="show" v-if="!$fetchState.pending && dataExists">
-      <ModalVideo v-if="modalYt" :ytLink="show.ytLink" @close="modalYt = false" />
+      <ModalVideo
+        v-if="modalYt"
+        :ytLink="show.ytLink"
+        @close="modalYt = false"
+      />
       <ModalCarousel
         :isShow="true"
         @close="modalCarousel = false"
@@ -17,7 +21,11 @@
       >
         <div class="banner-shadow"></div>
         <div class="container">
-          <button @click="$router.go(-1)" :title="'Volver atrás'" class="btn-back button-icon">
+          <router-link
+            :to="'/shows/' + this.$route.params.ano"
+            :title="'Volver atrás'"
+            class="btn-back button-icon"
+          >
             <i>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +42,7 @@
               </svg>
             </i>
             Volver
-          </button>
+          </router-link>
           <button
             class="button-icon"
             @click="modalYt = true"
@@ -76,11 +84,13 @@ export default {
   head() {
     return {
       title: `${this.show.nombre} | Shows y Eventos`,
-      meta: [{
-        hid: 'description',
-        name: 'description',
-        content: `${this.show.nombre} ${this.show.ano} ${this.show.ubicacion}`
-      }]
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: `${this.show.nombre} ${this.show.ano} ${this.show.ubicacion}`,
+        },
+      ],
     };
   },
   data() {
@@ -104,7 +114,7 @@ export default {
   },
   methods: {
     LoadedImg() {
-      this.loadingImg = false
+      this.loadingImg = false;
     },
     MostrarCarousel(index) {
       this.modalCarousel = true;
@@ -112,7 +122,7 @@ export default {
     },
   },
   mounted() {
-    if (this.dataExists==false) {
+    if (this.dataExists == false) {
       this.$nuxt.error({ statusCode: 404 });
     }
   },
