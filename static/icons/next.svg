@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="Capa_2" data-name="Capa 2">
+    <g id="Capa_1-2" data-name="Capa 1">
+      <g id="next">
+        <ellipse id="Elipse_1" data-name="Elipse 1" cx="16" cy="16.41" rx="10" ry="9.41"/>
+        <path id="arrow-right-circle-fill-3" class="cls-1" d="M16,0A16,16,0,1,1,0,16,16,16,0,0,1,16,0ZM9,15a1,1,0,0,0,0,2H20.59l-4.3,4.29a1,1,0,0,0,1.42,1.42l6-6a1,1,0,0,0,0-1.42h0l-6-6a1,1,0,0,0-1.42,1.42L20.59,15Z"/>
+      </g>
+    </g>
+  </g>
+</svg>
