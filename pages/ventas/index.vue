@@ -1,7 +1,7 @@
 <template>
   <div>
-    <LoaderCard v-if="$fetchState.pending" />
-    <div v-if="!$fetchState.pending">
+    <LoaderCard v-if="loading" />
+    <div v-show="!loading">
       <Banner titulo="Ventas" />
       <section class="productos">
         <div class="container">
@@ -71,6 +71,7 @@ export default {
       searchResult: [],
       searchQuery: '',
       showLoadingSearch: false,
+      loading: true,
     };
   },
   head() {
@@ -101,10 +102,10 @@ export default {
         querySnapshotProductos.forEach((doc) => {
           productos.push(doc.data())
         });
-        this.searchResult = productos.filter(producto => 
-        producto.nombre.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(searchQuery) 
-        || producto.slug.toLowerCase().replace(/-/g, ' ').includes(searchQuery)
-        || producto.slug.toLowerCase().includes(searchQuery)
+        this.searchResult = productos.filter(producto =>
+          producto.nombre.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(searchQuery)
+          || producto.slug.toLowerCase().replace(/-/g, ' ').includes(searchQuery)
+          || producto.slug.toLowerCase().includes(searchQuery)
         )
         this.showLoadingSearch = false
         if (this.searchResult == 0) {
@@ -115,7 +116,7 @@ export default {
       }
     },
   },
-  async fetch() {
+  async mounted() {
     //query categorias (de ventas)
     const queryCategorias = query(
       collection(db, "categorias"),
@@ -128,6 +129,7 @@ export default {
       querySnapshotCategorias.forEach((doc) => {
         this.categorias.push({ id: doc.id, ...doc.data() });
       });
+      this.loading = false;
     }
   },
 };

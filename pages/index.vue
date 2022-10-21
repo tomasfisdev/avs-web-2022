@@ -66,8 +66,7 @@
         <div class="cont-nosotros">
           <div class="panel-3d">
             <LoaderIframe v-if="loadingIframePanel" />
-            <nuxt-img provider="static" sizes="xl:100vw lg:100vw md:100vw sm:100vw xs:100vw" @load="LoadedIframePanel()"
-              src="/img/panel-img.png" alt="Panel Pantalla de Led" />
+            <img @load="LoadedIframePanel()" src="/img/panel-img.png" alt="Panel Pantalla de Led" />
           </div>
           <div class="nosotros-texto">
             <div class="titulo">
@@ -113,8 +112,7 @@
                 </svg>
               </i>
             </button>
-            <nuxt-img provider="static" @click="modalYt = true" src="/img/portada-video.jpg"
-              sizes="xl:100vw lg:100vw md:100vw sm:100vw xs:100vw" alt="AVS Reel 2018 Youtube" />
+            <img @click="modalYt = true" src="/img/portada-video.jpg" alt="AVS Reel 2018 Youtube" />
           </div>
         </div>
       </section>
@@ -134,31 +132,27 @@
                 <h3>Lollapalooza</h3>
                 <p>2018</p>
               </div>
-              <nuxt-img provider="static" sizes="xs:564px sm:691px md:340px" src="/img/slides-shows-inicio/show-1.jpg"
-                alt="Lollapalooza 2018 Hipódromo de San Isidro" />
+              <img src="/img/slides-shows-inicio/show-1.jpg" alt="Lollapalooza 2018 Hipódromo de San Isidro" />
             </slide>
             <slide @slideclick="SlideLink(`/shows/2018/katy-perry`)">
               <div class="slide-texto">
                 <h3>Katy Perry</h3>
                 <p>2018</p>
               </div>
-              <nuxt-img provider="static" sizes="xs:564px sm:691px md:340px" src="/img/slides-shows-inicio/show-2.jpg"
-                alt="Katy Perry 2018 Club Ciudad" />
+              <img src="/img/slides-shows-inicio/show-2.jpg" alt="Katy Perry 2018 Club Ciudad" />
             </slide>
             <slide @slideclick="SlideLink(`/shows/2016/martin-fierro`)">
               <div class="slide-texto">
                 <h3>Martín Fierro</h3>
                 <p>2016</p>
               </div>
-              <nuxt-img provider="static" sizes="xs:564px sm:691px md:340px" src="/img/slides-shows-inicio/show-3.jpg"
-                alt="Martín Fierro 2016 Canal 13" />
+              <img src="/img/slides-shows-inicio/show-3.jpg" alt="Martín Fierro 2016 Canal 13" />
             </slide>
             <slide @slideclick="SlideLink(`/shows`)">
               <div class="slide-texto">
                 <h3>Ver Más</h3>
               </div>
-              <nuxt-img provider="static" sizes="xs:564px sm:691px md:340px" src="/img/slides-shows-inicio/show-4.jpg"
-                alt="Shows y Eventos Audiovisual Systems" />
+              <img src="/img/slides-shows-inicio/show-4.jpg" alt="Shows y Eventos Audiovisual Systems" />
             </slide>
           </carousel>
         </div>

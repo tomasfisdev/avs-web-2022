@@ -8,7 +8,7 @@
           <li v-for="(item, index) in equipamiento" :key="index">
             <LoaderIframe v-if="loadingImg" />
             <h3>{{ item.nombre }}</h3>
-            <nuxt-img provider="static" sizes="xs:580px sm:342px md:300px lg:429px" @load="LoadedImg()"
+            <img provider="static" @load="LoadedImg()"
               :src="`/img/equipamiento/${item.img}`" :alt="item.nombre" />
           </li>
         </ul>

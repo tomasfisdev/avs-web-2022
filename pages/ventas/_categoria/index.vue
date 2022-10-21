@@ -1,7 +1,7 @@
 <template>
   <div>
-    <LoaderCard v-if="$fetchState.pending || !dataExists" />
-    <div v-if="!$fetchState.pending && dataExists">
+    <LoaderCard v-if="loading" />
+    <div v-show="!loading">
       <Banner :titulo="this.titulo" />
       <section class="productos">
         <section class="nav-anos-container container search-ventas">
@@ -19,8 +19,8 @@
               Buscar Show
             </button>
           </form>
-          <button v-show="searchResult.length >= 1 || noSearchResult" @click="CancelSearch()"
-            title="Cerrar búsqueda" class="btn-search button-icon">
+          <button v-show="searchResult.length >= 1 || noSearchResult" @click="CancelSearch()" title="Cerrar búsqueda"
+            class="btn-search button-icon">
             <i>
               <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
                 <path fill-rule="evenodd"
@@ -63,6 +63,7 @@ export default {
       showLoadingSearch: false,
       searchResult: [],
       searchQuery: '',
+      loading: true
     };
   },
   head() {
@@ -75,10 +76,22 @@ export default {
       }]
     };
   },
-  mounted() {
-    if (this.dataExists == false) {
+  async mounted() {
+    //query ventas, trae productos segun categoria (recibe slug que viene de la url)
+    const queryVentas = query(
+      collection(db, "ventas"),
+      where("categoria.slug", "==", this.$route.params.categoria),
+      where("publicado", "==", true),
+      orderBy("nombre", "asc")
+    );
+    const querySnapshotVentas = await getDocs(queryVentas);
+    if (querySnapshotVentas.empty) {
       this.$nuxt.error({ statusCode: 404 });
     }
+    querySnapshotVentas.forEach((doc) => {
+      this.productos.push({ id: doc.id, ...doc.data() });
+    });
+    this.loading = false;
   },
   methods: {
     async CancelSearch() {
@@ -99,10 +112,10 @@ export default {
         querySnapshotProductos.forEach((doc) => {
           productos.push(doc.data())
         });
-        this.searchResult = productos.filter(producto => 
-        producto.nombre.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(searchQuery) 
-        || producto.slug.toLowerCase().replace(/-/g, ' ').includes(searchQuery)
-        || producto.slug.toLowerCase().includes(searchQuery)
+        this.searchResult = productos.filter(producto =>
+          producto.nombre.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(searchQuery)
+          || producto.slug.toLowerCase().replace(/-/g, ' ').includes(searchQuery)
+          || producto.slug.toLowerCase().includes(searchQuery)
         )
         this.showLoadingSearch = false
         if (this.searchResult == 0) {
@@ -112,22 +125,6 @@ export default {
         }
       }
     },
-  },
-  async fetch() {
-    //query ventas, trae productos segun categoria (recibe slug que viene de la url)
-    const queryVentas = query(
-      collection(db, "ventas"),
-      where("categoria.slug", "==", this.$route.params.categoria),
-      where("publicado", "==", true),
-      orderBy("nombre", "asc")
-    );
-    const querySnapshotVentas = await getDocs(queryVentas);
-    if (querySnapshotVentas.empty) {
-      this.dataExists = false;
-    }
-    querySnapshotVentas.forEach((doc) => {
-      this.productos.push({ id: doc.id, ...doc.data() });
-    });
   },
 };
 </script>
