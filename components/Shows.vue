@@ -51,39 +51,40 @@
                     <template v-if="searchResult.length > 0 && !noSearchResult">
                         <Card v-for="show in searchResult" :key="show.id" preLink="/shows" :show="show" />
                     </template>
-                    <client-only v-if="searchResult.length == 0 && !noSearchResult">
-                        <infinite-loading class="infinite-loading-cards" @infinite="infiniteHandler">
-                            <span slot="no-more"></span>
-                            <span slot="no-results"></span>
-                            <template v-slot:spinner>
-                                <div class="loader">
-                                    <div class="productos">
-                                        <div class="container">
-                                            <div class="card">
-                                                <div class="img skeleton"></div>
-                                                <div class="card-text">
-                                                    <div class="skeleton h3"></div>
-                                                </div>
+
+                </ul>
+                <client-only v-if="searchResult.length == 0 && !noSearchResult">
+                    <infinite-loading class="infinite-loading-cards" @infinite="infiniteHandler">
+                        <span slot="no-more"></span>
+                        <span slot="no-results"></span>
+                        <template v-slot:spinner>
+                            <div class="loader">
+                                <div class="productos">
+                                    <div class="container">
+                                        <div class="card">
+                                            <div class="img skeleton"></div>
+                                            <div class="card-text">
+                                                <div class="skeleton h3"></div>
                                             </div>
-                                            <div class="card">
-                                                <div class="img skeleton"></div>
-                                                <div class="card-text">
-                                                    <div class="skeleton h3"></div>
-                                                </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="img skeleton"></div>
+                                            <div class="card-text">
+                                                <div class="skeleton h3"></div>
                                             </div>
-                                            <div class="card">
-                                                <div class="img skeleton"></div>
-                                                <div class="card-text">
-                                                    <div class="skeleton h3"></div>
-                                                </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="img skeleton"></div>
+                                            <div class="card-text">
+                                                <div class="skeleton h3"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </template>
-                        </infinite-loading>
-                    </client-only>
-                </ul>
+                            </div>
+                        </template>
+                    </infinite-loading>
+                </client-only>
                 <template v-if="noSearchResult">
                     <p class="container no-search-result">Lo sentimos, no hay resultados para esta búsqueda.</p>
                 </template>

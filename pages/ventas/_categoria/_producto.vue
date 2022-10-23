@@ -204,7 +204,7 @@ export default {
       this.currentImgIndex = index;
     },
   },
-  async mounted() {
+  async fetch() {
     const queryProducto = query(
       collection(db, "ventas"),
       where("slug", "==", this.$route.params.producto),
